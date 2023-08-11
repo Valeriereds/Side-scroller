@@ -1,0 +1,28 @@
+{
+  "name": "side-scroller",
+  "version": "1.0.0",
+  "description": "Future improvements: \r - Add music\r - Game can end without player failure (introduce a running clock to get to the end of the level)\r - Use the y-axis for obstacles/enemies as well (swimming or flying enemies)\r - Log more game stats for leaderboard differentiation\r - Fight a boss at the level's end\r ## Installation",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "connect-session-sequelize": "^7.1.7",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^5.2.0",
+    "express-session": "^1.17.1",
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.3.5"
+  },
+  "devDependencies": {
+    "eslint": "^7.12.1",
+    "eslint-config-prettier": "^6.15.0",
+    "prettier": "^2.1.2"
+  }
+}
