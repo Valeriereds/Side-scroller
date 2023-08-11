@@ -1,9 +1,15 @@
 // User's data will be stored here!
 
 const { Model, DataTypes } = require('sequelize');
-const sequelize = require('..config/connection');
+const bcrypt = require('bcrypt');
+const sequelize = require('../config/connection');
 
-class User extends Model {}
+class User extends Model {
+    checkPassword(loginPw) {
+      return bcrypt.compareSync(loginPw, this.password);
+    }
+  }
+
 
 User.init(
     {
@@ -13,13 +19,11 @@ User.init(
             primaryKey: true,
             autoIncrement: true,
         },
-        // Will become `player_name` in table due to `underscored` flag
-        playerName: {
+        player_name: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        // Will become `high_score` in table due to `underscored` flag
-        highScore: {
+        high_score: {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
