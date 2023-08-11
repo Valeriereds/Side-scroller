@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Powerups } = require('../models');
+const  User = require('../models/User');
 const withAuth = require('../utils/auth');
 
 router.get('/start', withAuth, async (req, res) => {
