@@ -1,0 +1,17 @@
+[
+    {
+        "player_name": "Lance",
+        "password": "123",
+        "highscore": 100
+    },
+    {
+        "player_name": "Jorge",
+        "password": "234",
+        "highscore": 110
+    },    
+    {
+        "player_name": "Shaq",
+        "password": "345",
+        "highscore": 90
+    }
+]
