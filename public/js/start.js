@@ -6,6 +6,8 @@ window.addEventListener('load', function () {
     let enemies = []
     let score = 0
     let gameOver = false
+    let audio1 = new Audio('Beat-Blitz.mp3');
+    audio1.play();
 
     class InputHandler {
         constructor() {
@@ -35,15 +37,15 @@ window.addEventListener('load', function () {
         constructor(gameWidth, gameHeight) {
             this.gameWidth = gameWidth;
             this.gameHeight = gameHeight;
-            this.width = 200;
-            this.height = 200;
+            this.width = 170;
+            this.height = 170;
             this.x = 0;
             this.y = this.gameHeight - this.height;
             this.image = document.getElementById('playerImage');
             this.frameX = 0;
-            this.maxFrame = 8;
+            this.maxFrame = 5;
             this.frameY = 0;
-            this.fps = 20;
+            this.fps = 15;
             this.frameTimer = 0;
             this.frameInterval = 1000 / this.fps;
             this.speed = 0;
@@ -96,11 +98,11 @@ window.addEventListener('load', function () {
             this.y += this.vy;
             if (!this.onGround()) {
                 this.vy += this.weight;
-                this.maxFrame = 5;
-                this.frameY = 1;
+                this.maxFrame = 0;
+                this.frameY = 0;
             } else {
                 this.vy = 0;
-                this.maxFrame = 8;
+                this.maxFrame = 5;
                 this.frameY = 0;
             }
             if (this.y > this.gameHeight - this.height) this.y = this.gameHeight - this.height
@@ -135,17 +137,17 @@ window.addEventListener('load', function () {
         constructor(gameWidth, gameHeight) {
             this.gameWidth = gameWidth;
             this.gameHeight = gameHeight;
-            this.width = 160;
-            this.height = 119;
+            this.width = 200;
+            this.height = 100;
             this.image = document.getElementById('enemyImage');
             this.x = this.gameWidth;
             this.y = this.gameHeight - this.height;
             this.frameX = 0;
-            this.maxFrame = 5;
+            this.maxFrame = 3;
             this.fps = 20;
             this.frameTimer = 0;
             this.frameInterval = 1000 / this.fps;
-            this.speed = 4;
+            this.speed = 6;
             this.markedForDeletion = false;
         }
         draw(context) {
@@ -215,7 +217,7 @@ window.addEventListener('load', function () {
         lastTime = timeStamp;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         background.draw(ctx);
-        // background.update();
+        background.update();
         player.draw(ctx);
         player.update(input, deltaTime, enemies);
         handleEnemies(deltaTime);
