@@ -12,18 +12,22 @@ router.get('/', async (req, res) => {
 });
 
 
-router.get('/', async (req, res) => {
+router.post('/', async (req, res) => {
   try {
-    const userData = await User(req.body);
+    const userData = await User.create(req.body);
 
     req.session.save(() => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;
 
       res.status(200).json(userData);
+
+      // showing user_id as null in terminal; revisit
+      console.log(req.session);
+      console.log(req.body);
     });
   } catch (err) {
-    res.status(400).json(err);
+    res.status(400).json(err.message);
   }
 });
 

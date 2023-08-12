@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const  User  = require('../../');
+const  User  = require('../../models/User');
+const Scores = require('../../models/Scores');
 
 // router.post('/leaderboards', async (req, res) => {
 //   try {
@@ -29,7 +30,7 @@ router.get('/', async (req, res) => {
         //     logged_in: req.session.logged_in 
         // });
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json(err.message);
     }
 });
 
