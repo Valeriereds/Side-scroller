@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const User = require('../../models/User');
 
-// get 
+// get all users THIS WORKS
 router.get('/', async (req, res) => {
   try {
     const userData = await User.findAll();
@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-
+// create new signup THIS WORKS
 router.post('/', async (req, res) => {
   try {
     const userData = await User.create(req.body);
@@ -31,6 +31,7 @@ router.post('/', async (req, res) => {
   }
 });
 
+// current user login THIS WORKS
 router.post('/login', async (req, res) => {
   try {
     const userData = await User.findOne({ where: { player_name: req.body.player_name } });
@@ -62,6 +63,8 @@ router.post('/login', async (req, res) => {
     res.status(400).json(err);
   }
 });
+
+
 
 // router.post('/logout', (req, res) => {
 //   if (req.session.logged_in) {
