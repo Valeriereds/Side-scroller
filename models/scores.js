@@ -17,7 +17,6 @@ Scores.init(
     },
     user_id: {
       type: DataTypes.INTEGER,
-      allowNull: true,
       references: {
         model: 'user',
         key: 'id'
@@ -32,5 +31,11 @@ Scores.init(
     modelName: 'scores',
   }
 );
+
+// Scores.associate = models => {
+//   Scores.belongsTo(models.User, {
+//     foreignKey: 'user_id',
+//   });
+// };
 
 module.exports = Scores;
