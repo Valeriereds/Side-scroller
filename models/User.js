@@ -1,9 +1,7 @@
 // User's data will be stored here!
 
 const { Model, DataTypes } = require('sequelize');
-// TODO: When pushing, use the following line instead! 
-// const bcrypt = require('bcrypt');
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 const sequelize = require('../config/connection');
 
 class User extends Model {
