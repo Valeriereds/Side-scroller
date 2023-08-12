@@ -14,3 +14,7 @@ body {
 #playerImg, #backgroundImg {
   display: none;
 }
+
+.login-page {
+  color: white;
+}
