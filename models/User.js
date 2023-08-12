@@ -23,10 +23,6 @@ User.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        high_score: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
         password: {
             type: DataTypes.STRING,
             allowNull: false,
