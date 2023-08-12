@@ -17,9 +17,10 @@ Scores.init(
     },
     user_id: {
       type: DataTypes.INTEGER,
+      allowNull: true,
       references: {
         model: 'user',
-        key: 'id',
+        key: 'id'
       },
     },
   },

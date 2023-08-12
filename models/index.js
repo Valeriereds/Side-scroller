@@ -1,7 +1,7 @@
-const User = require('./user');
-const Scores = require('./scores');
+const User = require('./User');
+const Scores = require('./Scores');
 
-User.hasMany(score, {
+User.hasMany(Scores, {
   foreignKey: 'user_id',
   onDelete: 'CASCADE'
 });
