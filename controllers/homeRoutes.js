@@ -12,6 +12,16 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/gameover', async (req, res) => {
+  try {
+    res.render('gameover', {
+      logged_in: req.session.logged_in
+    });
+  } catch (err) {
+    res.status(500).json(err.message);
+  }
+});
+
 router.get('/start', withAuth, async (req, res) => {
   try {
     const userData = await User.findByPk(req.session.user_id, {
