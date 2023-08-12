@@ -1,5 +1,12 @@
 body {
   background: black;
+  color: white;
+  font-family: 'Russo One', sans-serif;
+  text-align: center;
+}
+
+header {
+  font-size: 2.75em;
 }
 
 #game-canvas {
