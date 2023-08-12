@@ -1,17 +1,14 @@
 [
     {
         "player_name": "Lance",
-        "high_score": 100,
         "password": "1234678"
     },
     {
         "player_name": "Jorge",
-        "high_score": 110,
         "password": "23456789"
     },    
     {
         "player_name": "Shaq",
-        "high_score": 90,
         "password": "34567890"
     }
 ]

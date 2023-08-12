@@ -1,7 +1,9 @@
 // User's data will be stored here!
 
 const { Model, DataTypes } = require('sequelize');
-const bcrypt = require('bcrypt');
+// TODO: When pushing, use the following line instead! 
+// const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const sequelize = require('../config/connection');
 
 class User extends Model {
@@ -21,10 +23,6 @@ User.init(
         },
         player_name: {
             type: DataTypes.STRING,
-            allowNull: false,
-        },
-        high_score: {
-            type: DataTypes.INTEGER,
             allowNull: false,
         },
         password: {
