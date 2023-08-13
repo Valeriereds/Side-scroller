@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const  User = require('../models/User');
+const { User, Scores } = require('../models');
 const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
@@ -22,15 +22,56 @@ router.get('/gameover', async (req, res) => {
   }
 });
 
-router.get('/leaderboards', async (req, res) => {
+router.get('/homepage', async (req, res) => {
   try {
-    res.render('leaderboards', {
+    res.render('homepage', {
       logged_in: req.session.logged_in
     });
   } catch (err) {
     res.status(500).json(err.message);
   }
 });
+
+// router.get('/leaderboards', async (req, res) => {
+//   try {
+//     res.render('leaderboards', {
+//       logged_in: req.session.logged_in
+//     });
+//   } catch (err) {
+//     res.status(500).json(err.message);
+//   }
+// });
+
+router.get('/leaderboards', async (req, res) => {
+  try {
+      // Get all scores and JOIN with user data
+      const scoreData = await Scores.findAll({
+      include: [
+          {
+              model: User,
+              attributes: ['player_name'],
+          }],
+      order: [['score', 'DESC']],
+      limit: 5,
+      });
+
+      // res.render('leaderboards', {
+      //   logged_in: req.session.logged_in
+      // })
+      console.log(scoreData);
+      // Serialize data so the template can read it
+      const scores = scoreData.map((score) => score.get({ plain: true }));
+  
+      // Pass serialized data and session flag into template
+      res.render('leaderboards', { 
+          scores, 
+          logged_in: req.session.logged_in 
+      });
+      // res.status(200).json(scoreData);
+    } catch (err) {
+      res.status(500).json(err.message);
+    }
+  });
 
 router.get('/start', withAuth, async (req, res) => {
   try {
