@@ -6,6 +6,10 @@ window.addEventListener('load', function () {
     let enemies = []
     let score = 0
     let gameOver = false
+    let powerUps = [];
+    let collectedPowerUpIndices = [];
+    let powerUpInterval = 20000; // Set the power-up interval to 10 seconds
+    let powerUpTimer = powerUpInterval; // Initialize the timer to the interval value
 
 
     let audio1 = new Audio('./assets/sounds/Beat_Blitz.mp3');
@@ -59,6 +63,9 @@ window.addEventListener('load', function () {
             this.speed = 0;
             this.vy = 0;
             this.weight = 1;
+            this.powerUp = false;
+            this.powerUpTimer = 0
+            this.powerUpLimit = 5000;
         }
         draw(context) {
             // context.fillStyle = 'white';
@@ -69,7 +76,7 @@ window.addEventListener('load', function () {
             // context.stroke();
             context.drawImage(this.image, this.frameX * this.width, this.frameY * this.height, this.width, this.height, this.x, this.y, this.width, this.height);
         }
-        update(input, deltaTime, enemies) {
+        update(input, deltaTime, enemies, powerUps) {
             //collision detection
             enemies.forEach(enemy => {
                 const dx = (enemy.x + enemy.width / 1.2) - (this.x + this.width / 3);
@@ -80,6 +87,7 @@ window.addEventListener('load', function () {
                     audio2.play();
                 }
             })
+
             // sprite animation
             if (this.frameTimer > this.frameInterval) {
                 if (this.frameX >= this.maxFrame) this.frameX = 0;
@@ -87,6 +95,28 @@ window.addEventListener('load', function () {
                 this.frameTimer = 0;
             } else {
                 this.frameTimer += deltaTime;
+            }
+
+            // power up
+            if (this.powerUp) {
+                this.powerUpTimer += deltaTime; // Increment power-up timer
+
+                if (this.powerUpTimer > this.powerUpLimit) {
+                    this.powerUp = false; // Deactivate power-up
+                    this.powerUpTimer = 0; // Reset power-up timer
+                }
+            } else {
+                powerUps.forEach((powerUp, index) => {
+                    const dx = (powerUp.x + powerUp.width / 2) - (this.x + this.width / 3);
+                    const dy = (powerUp.y + powerUp.height / 2) - (this.y + this.height / 3);
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < powerUp.width / 2 + this.width / 2 && !powerUp.active) {
+                        powerUp.active = true;
+                        this.powerUp = true;
+                        this.powerUpTimer = 0;
+                        collectedPowerUpIndices.push(index); // Store index for removal
+                    }
+                });
             }
 
             // controls
@@ -99,10 +129,12 @@ window.addEventListener('load', function () {
             } else {
                 this.speed = 0;
             }
+
             // horizontal movement
             this.x += this.speed;
             if (this.x < 0) this.x = 0;
             else if (this.x > this.gameWidth - this.width) this.x = this.gameWidth - this.width
+
             //vertical movement
             this.y += this.vy;
             if (!this.onGround()) {
@@ -142,6 +174,38 @@ window.addEventListener('load', function () {
         }
     }
 
+    class PowerUp {
+        constructor(gameWidth, gameHeight, initialY) {
+            this.gameWidth = gameWidth;
+            this.gameHeight = gameHeight;
+            this.width = 100;
+            this.height = 100;
+            this.image = document.getElementById('powerupImage');
+            this.x = this.gameWidth;
+            this.y = initialY;
+            this.active = false;
+            this.activeDuration = 5000;
+            this.timer = 0; // Timer for tracking active duration
+        }
+
+        draw(context) {
+            context.drawImage(this.image, this.x, this.y, this.width, this.height);
+        }
+
+        update(deltaTime) {
+            if (this.active) {
+                this.timer += deltaTime; // Increment the timer
+
+                if (this.timer > this.activeDuration) {
+                    this.active = false;
+                    this.timer = 0; // Reset the timer
+                }
+            }
+            this.x -= 2;
+        }
+    }
+
+
     class Enemy {
         constructor(gameWidth, gameHeight) {
             this.gameWidth = gameWidth;
@@ -176,7 +240,11 @@ window.addEventListener('load', function () {
             this.x -= this.speed;
             if (this.x < 0 - this.width) {
                 this.markedForDeletion = true;
-                score++;
+                if (player.powerUp) {
+                    score += 2; // Double points during power-up
+                } else {
+                    score += 1; // Regular points
+                }
                 audio3.play();
             }
         }
@@ -195,6 +263,29 @@ window.addEventListener('load', function () {
             enemy.update(deltaTime);
         });
         enemies = enemies.filter(enemy => !enemy.markedForDeletion);
+    }
+
+    function handlePowerUps(deltaTime) {
+        powerUpTimer += deltaTime;
+
+        if (powerUpTimer > powerUpInterval) {
+            const maxSpawnHeight = player.y - player.height; // Use player.height instead of player.jumpHeight
+            const minSpawnHeight = maxSpawnHeight - 200;
+
+            const yPosition = Math.max(minSpawnHeight, Math.random() * (maxSpawnHeight - minSpawnHeight) + minSpawnHeight);
+
+            powerUps.push(new PowerUp(canvas.width, canvas.height, yPosition));
+            powerUpTimer = 0; // Reset the timer
+        }
+
+        powerUps.forEach((powerUp, index) => {
+            powerUp.draw(ctx);
+            powerUp.update(deltaTime); // Pass deltaTime to the update method
+
+            if (powerUp.x + powerUp.width <= 0 || powerUp.active) {
+                powerUps.splice(index, 1);
+            }
+        });
     }
 
     function displayStatusText(context) {
@@ -230,10 +321,18 @@ window.addEventListener('load', function () {
         background.draw(ctx);
         background.update();
         player.draw(ctx);
-        player.update(input, deltaTime, enemies);
+        player.update(input, deltaTime, enemies, powerUps);
         handleEnemies(deltaTime);
+        handlePowerUps(deltaTime);
         displayStatusText(ctx);
-        if (!gameOver) requestAnimationFrame(animate);
+
+        // Remove collected power-ups
+        powerUps = powerUps.filter(powerUp => !powerUp.active);
+
+        if (!gameOver) {
+            requestAnimationFrame(animate);
+        }
     }
+
     animate(0);
 });
