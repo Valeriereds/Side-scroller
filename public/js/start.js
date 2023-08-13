@@ -6,8 +6,16 @@ window.addEventListener('load', function () {
     let enemies = []
     let score = 0
     let gameOver = false
-    let audio1 = new Audio('Beat-Blitz.mp3');
+
+
+    let audio1 = new Audio('./assets/sounds/Beat_Blitz.mp3');
+    audio1.volume = 0.1;
     audio1.play();
+    let audio2 = new Audio('./assets/sounds/Hero_Death.mp3');
+    audio2.volume = 0.2;
+    let audio3 = new Audio('./assets/sounds/Collect_Point.mp3');
+    audio3.volume = 0.2;
+
 
     class InputHandler {
         constructor() {
@@ -37,8 +45,8 @@ window.addEventListener('load', function () {
         constructor(gameWidth, gameHeight) {
             this.gameWidth = gameWidth;
             this.gameHeight = gameHeight;
-            this.width = 170;
-            this.height = 170;
+            this.width = 200;
+            this.height = 200;
             this.x = 0;
             this.y = this.gameHeight - this.height;
             this.image = document.getElementById('playerImage');
@@ -55,20 +63,21 @@ window.addEventListener('load', function () {
         draw(context) {
             // context.fillStyle = 'white';
             // context.fillRect(this.x, this.y, this.width, this.height);
-            context.strokeStyle = 'white'
+            // context.strokeStyle = 'white'
             context.beginPath();
-            context.arc(this.x + this.width / 2, this.y + this.height / 2, this.width / 2, 0, Math.PI * 2);
-            context.stroke();
+            context.arc(this.x + this.width / 3, this.y + this.height / 2, this.width / 2, 0, Math.PI * 2);
+            // context.stroke();
             context.drawImage(this.image, this.frameX * this.width, this.frameY * this.height, this.width, this.height, this.x, this.y, this.width, this.height);
         }
         update(input, deltaTime, enemies) {
             //collision detection
             enemies.forEach(enemy => {
-                const dx = (enemy.x + enemy.width / 2) - (this.x + this.width / 2);
-                const dy = (enemy.y + enemy.height / 2) - (this.y + this.height / 2);
+                const dx = (enemy.x + enemy.width / 1.2) - (this.x + this.width / 3);
+                const dy = (enemy.y + enemy.height / 1.2) - (this.y + this.height / 3);
                 const distance = Math.sqrt(dx * dx + dy * dy);
                 if (distance < enemy.width / 2 + this.width / 2) {
                     gameOver = true;
+                    audio2.play();
                 }
             })
             // sprite animation
@@ -147,13 +156,13 @@ window.addEventListener('load', function () {
             this.fps = 20;
             this.frameTimer = 0;
             this.frameInterval = 1000 / this.fps;
-            this.speed = 6;
+            this.speed = 10;
             this.markedForDeletion = false;
         }
         draw(context) {
             context.beginPath();
-            context.arc(this.x + this.width / 2, this.y + this.height / 2, this.width / 2, 0, Math.PI * 2);
-            context.stroke();
+            context.arc(this.x + this.width / 3, this.y + this.height / 2, this.width / 2, 0, Math.PI * 2);
+            // context.stroke();
             context.drawImage(this.image, this.frameX * this.width, 0, this.width, this.height, this.x, this.y, this.width, this.height);
         }
         update(deltaTime) {
@@ -168,6 +177,7 @@ window.addEventListener('load', function () {
             if (this.x < 0 - this.width) {
                 this.markedForDeletion = true;
                 score++;
+                audio3.play();
             }
         }
     }
@@ -194,14 +204,20 @@ window.addEventListener('load', function () {
         context.fillStyle = 'white';
         context.fillText('Score: ' + score, 20, 52)
         if (gameOver) {
+            audio1.pause();
             context.textAlign = 'center';
             context.fillStyle = 'black';
             context.fillText('GAME OVER, try again!', canvas.width / 2, 200);
             context.fillStyle = 'white';
-            context.fillText('GAME OVER, try again!', canvas.width / 2 + 2, 202);
+            context.fillText('GAME OVER, try again!', canvas.width / 2 + 2, 202)
+            setTimeout(function(){
             document.location.replace('/gameover');
+        }, 2000);
         }
+
     }
+
+   
 
     const input = new InputHandler();
     const player = new Player(canvas.width, canvas.height);
@@ -210,7 +226,7 @@ window.addEventListener('load', function () {
     let lastTime = 0;
     let enemyTimer = 0;
     let enemyInterval = 2000;
-    let randomEnemyInterval = Math.random() * 1000 + 500;
+    let randomEnemyInterval = Math.random() * 1000 + 100;
 
 
     function animate(timeStamp) {
