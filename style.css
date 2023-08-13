@@ -12,6 +12,7 @@ body {
 
 #playerImage,
 #backgroundImage,
-#enemyImage {
+#enemyImage,
+#powerupImage {
     display: none;
 }
