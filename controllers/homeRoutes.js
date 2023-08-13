@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/gameover', async (req, res) => {
+router.get('/gameover', withAuth, async (req, res) => {
   try {
     res.render('gameover', {
       logged_in: req.session.logged_in
@@ -22,7 +22,7 @@ router.get('/gameover', async (req, res) => {
   }
 });
 
-router.get('/homepage', async (req, res) => {
+router.get('/homepage', withAuth, async (req, res) => {
   try {
     res.render('homepage', {
       logged_in: req.session.logged_in
@@ -42,7 +42,7 @@ router.get('/homepage', async (req, res) => {
 //   }
 // });
 
-router.get('/leaderboards', async (req, res) => {
+router.get('/leaderboards', withAuth, async (req, res) => {
   try {
       // Get all scores and JOIN with user data
       const scoreData = await Scores.findAll({
