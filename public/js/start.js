@@ -210,31 +210,31 @@ window.addEventListener('load', function () {
             context.fillText('GAME OVER, try again!', canvas.width / 2, 200);
             context.fillStyle = 'white';
             context.fillText('GAME OVER, try again!', canvas.width / 2 + 2, 202);
-            setTimeout(function(){
-            document.location.replace('/gameover');
-        }, 2000)
-        const data = { 
-            score: score,
-        }
-        fetch('/api/leaderboards', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-          })
-            .then(response => {
-              if (!response.ok) {
-                throw new Error(`Network response was not ok: ${response.status}`);
-              }
-              return response.json();
+            setTimeout(function () {
+                document.location.replace('/gameover');
+            }, 2000)
+            const data = {
+                score: score,
+            }
+            fetch('/api/leaderboards', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
             })
-            .then(data => {
-              console.log('Score posted successfully:', data);
-            })
-            .catch(error => {
-              console.error('Error:', error);
-            });
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Network response was not ok: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Score posted successfully:', data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
         };
     };
 
