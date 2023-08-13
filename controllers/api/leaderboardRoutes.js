@@ -51,9 +51,11 @@ router.get('/:id', async (req, res) => {
       }
     });
 
-    router.post('/', async (req, res) => {
+router.post('/', async (req, res) => {
+  const body = req.body;
+
       try {
-        const newScore = await Scores.create(req.body);
+        const newScore = await Scores.create({...body, user_id: req.session.user_id});
     
         res.status(200).json(newScore);
       } catch (err) {
