@@ -16,8 +16,9 @@ router.get('/', async (req, res) => {
         limit: 5,
         });
         res.status(200).json(scoreData);
-        // Serialize data so the template can read it
-        const scores = scoreData.map((scores) => scores.get({ plain: true }));
+        console.log(scoreData);
+        // // Serialize data so the template can read it
+        // const scores = scoreData.map((scores) => scores.get({ plain: true }));
     
         // Pass serialized data and session flag into template
         res.render('leaderboards', { 

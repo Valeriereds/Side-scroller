@@ -25,3 +25,17 @@ header {
 .login-page {
   color: white;
 }
+
+#scoreList {
+display: flex;
+justify-content: center;
+}
+
+ul {
+  color: white;
+  text-align: center;
+}
+
+li {
+  color: white;
+}
