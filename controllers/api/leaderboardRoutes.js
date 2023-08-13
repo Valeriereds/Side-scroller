@@ -15,6 +15,7 @@ router.get('/', async (req, res) => {
         limit: 5,
         });
         res.status(200).json(scoreData);
+        console.log(scoreData);
         // // Serialize data so the template can read it
         // const scores = scoreData.map((scores) => scores.get({ plain: true }));
     
