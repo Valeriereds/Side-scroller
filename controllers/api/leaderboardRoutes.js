@@ -11,8 +11,9 @@ router.get('/', async (req, res) => {
             {
                 model: User,
                 attributes: ['player_name'],
-            },
-          ],
+            }],
+        order: [['score', 'DESC']],
+        limit: 5,
         });
         res.status(200).json(scoreData);
         // Serialize data so the template can read it
