@@ -14,7 +14,11 @@ router.get('/', async (req, res) => {
 
 router.get('/gameover', withAuth, async (req, res) => {
   try {
+    // trying to display last score on gameover
+    // const scoreData = await Scores.findAll();
+    // const scores = scoreData.map((score) => score.get({plain: true}));
     res.render('gameover', {
+      // scores,
       logged_in: req.session.logged_in
     });
   } catch (err) {
@@ -92,7 +96,7 @@ router.get('/start', withAuth, async (req, res) => {
 
 router.get('/login', (req, res) => {
   if (req.session.logged_in) {
-    res.redirect('/start');
+    res.redirect('/homepage');
     return;
   }
 

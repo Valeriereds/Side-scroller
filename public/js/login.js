@@ -19,7 +19,7 @@ const loginFormHandler = async (event) => {
       // document.location.replace('/profile');
       document.location.replace('/homepage');
     } else {
-      alert('User does not exist. Sign up first!')
+      alert('User/password combination does not exist. Sign up first!')
     }
   }
 };

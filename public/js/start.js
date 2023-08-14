@@ -1,11 +1,11 @@
 window.addEventListener('load', function () {
-    const canvas = document.getElementById('game-canvas');
+    const canvas = document.getElementById('canvas1');
     const ctx = canvas.getContext('2d');
     canvas.width = 800;
     canvas.height = 720;
-    let enemies = [];
-    let score = 0;
-    let gameOver = false;
+    let enemies = []
+    let score = 0
+    let gameOver = false
     let powerUps = [];
     let collectedPowerUpIndices = [];
     let powerUpInterval = 20000; // Set the power-up interval to 10 seconds
