@@ -1,6 +1,5 @@
 // require the model and datatypes from sequelize and connect to the configuration files 
 const { Model, DataTypes } = require('sequelize');
-// using bcrypt here
 const bcrypt = require('bcrypt');
 const sequelize = require('../config/connection');
 
