@@ -25,7 +25,7 @@ https://drive.google.com/file/d/1Px8O7c55ys8aPrudAiBWCi4mH0ImNBWV/view
 
 ## Database Creation & Seeding
 
-We created our interrelational database with two tables for scoring user's credentials and scores. 
+We created our inter-relational database with two tables for scoring user's credentials and scores. 
 
 ![schematic representation of the sidescroller database](<assets/images/database-schema.jpg>)
 
@@ -33,7 +33,11 @@ Although no seeding of the database is necessary to play and enjoy JumpIt NYC, s
 
 ## Usage
 
+![GIF of deployed game](<assets/images/Untitled_ Aug 14, 2023 2_49 PM.gif>)
 
+https://drive.google.com/file/d/1fYLtqbB5E52EQesHZZ26F71lrgJbRhrX/view
+
+https://shielded-sierra-32207-ce4eacbcd6c6.herokuapp.com/
 
 To access the game, an existing user must be logged in, otherwise a new user must sign up, using a password that must be 8 or more characters. When the user is logged in, they're redirected to a homepage with three options: Start Game, access Leaderboards, or Log Out, as well on the following instructions on how to play the game: hit the left or right arrow keys to move your character around the game screen, as well as jumping up to dodge rats and acquire pizza power-ups for double the points! Once a player loses, they are redirected to the game over screen, which allows them to restart the game, look at the leaderboards, or log out and let another player try their hand at beating your score! Only the top 5 highest scores are displayed on the leaderboards, good luck!
 
