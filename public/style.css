@@ -10,7 +10,6 @@ header {
 }
 
 #game-canvas {
-  background: blue;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -18,7 +17,7 @@ header {
   border: 5px solid white;
 }
 
-#playerImage, #backgroundImage, #enemyImage {
+#playerImage, #backgroundImage, #enemyImage, #powerupImage {
   display: none;
 }
 

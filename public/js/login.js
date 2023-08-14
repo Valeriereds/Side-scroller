@@ -19,7 +19,7 @@ const loginFormHandler = async (event) => {
       // document.location.replace('/profile');
       document.location.replace('/homepage');
     } else {
-      alert(response.statusText);
+      alert('User does not exist. Sign up first!')
     }
   }
 };
@@ -42,7 +42,7 @@ const signupFormHandler = async (event) => {
     if (response.ok) {
       document.location.replace('/homepage');
     } else {
-      alert(response.statusText);
+      alert('Please make your password at least 8 characters long.');
     }
   }
 };
