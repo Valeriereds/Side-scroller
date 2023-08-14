@@ -1,3 +1,4 @@
+// function logs user out and redirects them to the login screen
 const logout = async () => {
   const response = await fetch('/api/users/logout', {
     method: 'POST',
@@ -11,6 +12,7 @@ const logout = async () => {
   }
 };
 
+// function that fetches the game/redirects them to the game start page
 const startGame = async () => {
   const response = await fetch('/start', {
     method: 'GET',
@@ -23,6 +25,7 @@ const startGame = async () => {
   }
 }
 
+// function that fetches the leaderboard data and redirects to leaderboard page
 const leaderboards = async () => {
   const response = await fetch('/api/leaderboards', {
     method: 'GET',
@@ -35,6 +38,7 @@ const leaderboards = async () => {
   }
 }
 
+// buttons created to logout, start the game or access leaderboards when clicked
 document.querySelector('#logout').addEventListener('click', logout);
 document.querySelector('#startGame').addEventListener('click', startGame);
 document.querySelector('#leaderboard').addEventListener('click', leaderboards);
