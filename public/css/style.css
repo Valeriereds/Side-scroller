@@ -69,8 +69,30 @@ body {
   margin-top: 20px;
 }
 
+.btn:hover {
+  text-shadow:
+  0 0 2px #fff,
+  0 0 5px #fff,
+  0 0 10px #fff,
+  0 0 21px #FF79D7,
+  0 0 61px #FF79D7,
+  0 0 71px #FF79D7,
+  0 0 81px #FF79D7,
+  0 0 130px #FF79D7;
+}
+
 h2 {
   font-size: 2.5em;
+}
+
+th {
+  text-align: justify;
+  padding: 10px;
+  font-size: 1.75em;
+}
+
+td {
+  font-size: 1.50em;
 }
 
 .form-group {
@@ -108,11 +130,11 @@ display: flex;
 justify-content: center;
 }
 
-ul {
-  color: white;
-  text-align: center;
+#returnHome {
+  font-size: 1.5em;
+  margin-top: 50px;
 }
 
-li {
-  color: white;
+#play-again {
+  font-size: 1.5em;
 }
