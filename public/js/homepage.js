@@ -35,20 +35,6 @@ const leaderboards = async () => {
   }
 }
 
-const login = async () => {
-  const response = await fetch('/login', {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json' },
-  });
-
-  if (response.ok) {
-    document.location.replace('/login');
-  } else {
-    alert(response.statusText);
-  }
-};
-
 document.querySelector('#logout').addEventListener('click', logout);
 document.querySelector('#startGame').addEventListener('click', startGame);
 document.querySelector('#leaderboard').addEventListener('click', leaderboards);
-document.querySelector('#login').addEventListener('click', login);

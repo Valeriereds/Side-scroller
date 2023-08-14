@@ -1,5 +1,9 @@
 {{!-- TODO: Center align text, style board and font, size of table --}}
 {{!-- TODO: Add variables from the api route to get results from the scores table --}}
+<header class="bigHeader">
+    <h1>JumpIt NYC</h1>
+</header>
+
 <table id="scoreList">
     <tr>
         <th>Player Name</th>
@@ -11,42 +15,8 @@
         <td>{{score.score}}</td>
     </tr>
     {{/each}}
-{{!-- <ol>
-{{#each scores as |score|}}
-    <li>{{user.player_name}} {{score.score}} 
-    </li>
-{{/each}}
-</ol> --}}
 </table>
 
-<button type="button" id="returnHome">Back to Homepage</button>
-{{!-- {{user.player_name}} --}}
-{{!-- <table>
-    <caption>LEADERBOARD</caption>
-    <tr>
-        <th>Player Name</th>
-        <th>Score</th>
-    </tr>
-    <tr>
-        <td>Example Player 1</td>
-        <td>Highest Score</td>
-    </tr>
-    <tr>
-        <td>Example Player 2</td>
-        <td>2nd Highest Score</td>
-    </tr>
-        <tr>
-        <td>Example Player 3</td>
-        <td>3rd Highest Score</td>
-    </tr>
-        <tr>
-        <td>Example Player 4</td>
-        <td>4th Highest Score</td>
-    </tr>
-    <tr>
-        <td>Example Player 5</td>
-        <td>5th Highest Score</td>
-    </tr>
-</table> --}}
+<button type="button" id="returnHome">Return to Homepage</button>
 
 <script src="/js/gameover.js"></script>
