@@ -1,9 +1,10 @@
 const router = require('express').Router();
 const { User, Scores }  = require('../../models');
-// TODO still needs tested, attempting to get leaderboard scores data
+
+
+// Get all scores and JOIN with user data
 router.get('/', async (req, res) => {
     try {
-        // Get all scores and JOIN with user data
         const scoreData = await Scores.findAll({
         include: [
             {
