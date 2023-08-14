@@ -1,20 +1,26 @@
+// require model and datatypes from sequelize and connect to configuration files 
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
+// name the Scores model using sequelize methods
 class Scores extends Model {}
 
+// create and describe the scores model
 Scores.init(
   {
+    // the id field is a autoincremented primary key
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
     },
+    // the user's score will be logged in this column as an integer
     score: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    // the user_id column references the id column of the user table, connecting both tables
     user_id: {
       type: DataTypes.INTEGER,
       allowNull: true,
@@ -25,6 +31,7 @@ Scores.init(
     },
   },
   {
+    // set sequelize standards to avoid timestamps, restrict pluralization of table names, pass in underscoring naming conventions, and pass the case-sensitive name of the scores model
     sequelize,
     timestamps: false,
     freezeTableName: true,
@@ -33,10 +40,5 @@ Scores.init(
   }
 );
 
-// Scores.associate = models => {
-//   Scores.belongsTo(models.User, {
-//     foreignKey: 'user_id',
-//   });
-// };
-
+// export the Scores model
 module.exports = Scores;
