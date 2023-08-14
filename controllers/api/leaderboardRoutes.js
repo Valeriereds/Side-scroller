@@ -15,38 +15,11 @@ router.get('/', async (req, res) => {
         limit: 5,
         });
         res.status(200).json(scoreData);
-        console.log(scoreData);
-        // // Serialize data so the template can read it
-        // const scores = scoreData.map((scores) => scores.get({ plain: true }));
-        // // Pass serialized data and session flag into template
-        // res.render('leaderboards', {
-        //     scores,
-        //     logged_in: req.session.logged_in
-        // });
       } catch (err) {
         res.status(500).json(err.message);
       }
     });
-    router.get('/:id', async (req, res) => {
-      try {
-        const scoreData = await Scores.findByPk(req.params.id, {
-          include: [
-            {
-              model: User,
-              attributes: ['player_name'],
-            },
-          ],
-        });
-        res.status(200).json(scoreData)
-        // const score = scoreData.get({ plain: true });
-        // res.render('scores', {
-        //   ...score,
-        //   logged_in: req.session.logged_in
-        // });
-      } catch (err) {
-        res.status(500).json(err);
-      }
-    });
+
 router.post('/', async (req, res) => {
   const body = req.body;
       try {
@@ -56,4 +29,5 @@ router.post('/', async (req, res) => {
         res.status(400).json(err);
       }
     });
+
 module.exports = router;
