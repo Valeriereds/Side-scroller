@@ -33,9 +33,9 @@ Although no seeding of the database is necessary to play and enjoy JumpIt NYC, s
 
 ## Usage
 
-![GIF of deployed game](<assets/images/Untitled_ Aug 14, 2023 2_49 PM.gif>)
+![GIF of gameplay and leaderboard page](<assets/images/Untitled_ Aug 14, 2023 3_39 PM.gif>)
 
-https://drive.google.com/file/d/1fYLtqbB5E52EQesHZZ26F71lrgJbRhrX/view
+https://drive.google.com/file/d/1GWs2iOQHL8MzSv1T7tkQOlJMZJKC1yE7/view
 
 https://shielded-sierra-32207-ce4eacbcd6c6.herokuapp.com/
 
