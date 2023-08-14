@@ -1,7 +1,7 @@
-// User's data will be stored here!
-
+// require the model and datatypes from sequelize and connect to the configuration files 
 const { Model, DataTypes } = require('sequelize');
-const bcrypt = require('bcryptjs');
+// using bcrypt here
+const bcrypt = require('bcrypt');
 const sequelize = require('../config/connection');
 
 class User extends Model {
