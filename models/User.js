@@ -8,9 +8,9 @@ const sequelize = require('../config/connection');
 class User extends Model {
     // double-check encrypted password to confirm logins
     checkPassword(loginPw) {
-      return bcrypt.compareSync(loginPw, this.password);
+        return bcrypt.compareSync(loginPw, this.password);
     }
-  }
+}
 
 // creates and describes the user model
 User.init(
