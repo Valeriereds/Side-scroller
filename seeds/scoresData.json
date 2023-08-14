@@ -1,18 +1,18 @@
 [
     {
-        "score": 100,
+        "score": 7,
         "user_id": 1
     },
     {
-        "score": 160,
+        "score": 16,
         "user_id": 3
     }, 
     {
-        "score": 110,
+        "score": 11,
         "user_id": 2
     },   
     {
-        "score": 90,
+        "score": 2,
         "user_id": 3
     }
 ]
