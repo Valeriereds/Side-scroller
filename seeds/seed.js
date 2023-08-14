@@ -1,6 +1,6 @@
 const sequelize = require('../config/connection');
 const  User  = require('../models/User');
-const Scores = require('../models/Scores')
+const Score = require('../models/Score')
 const userData = require('./userData.json');
 const scoresData = require('./scoresData.json')
 
@@ -11,7 +11,7 @@ const seedDatabase = async () => {
         returning: true,
     });
     for (const scores of scoresData) {
-        await Scores.create({
+        await Score.create({
             ...scores
         })
     }

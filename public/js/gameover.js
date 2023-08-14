@@ -4,7 +4,7 @@ function restartGame() {
 }
 
 // function to render scores
-function renderScores() {
+function renderScore() {
   document.location.replace('/leaderboards');
 }
 

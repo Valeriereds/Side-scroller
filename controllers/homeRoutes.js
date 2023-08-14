@@ -1,6 +1,6 @@
 // import express router, models, and authentication middleware
 const router = require('express').Router();
-const { User, Scores } = require('../models');
+const { User, Score } = require('../models');
 const withAuth = require('../utils/auth');
 
 // GET method to render login page at base url
@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
 router.get('/gameover', withAuth, async (req, res) => {
   try {
     // finds score created when game ends to display
-    const scoreData = await Scores.findAll();
+    const scoreData = await Score.findAll();
     const scores = scoreData.map((score) => score.get({plain: true}));
     let lastScore = scores[scores.length-1].score;
     res.render('gameover', {
@@ -46,7 +46,7 @@ router.get('/homepage', withAuth, async (req, res) => {
 router.get('/leaderboards', withAuth, async (req, res) => {
   try {
     // Get all scores and JOIN with user data
-    const scoreData = await Scores.findAll({
+    const scoreData = await Score.findAll({
     include: [
       {
         model: User,
