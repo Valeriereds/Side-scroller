@@ -1,14 +1,16 @@
+// import Sequelize library
 const Sequelize = require('sequelize');
 
 // Enable access to .env variables
 require('dotenv').config();
 
+// create sequelize instance
 let sequelize;
 
-// Use environment variables to connect to database
+// Use JawsDB on Heroku; otherwise user local MySQL database
 if (process.env.JAWSDB_URL) {
     sequelize = new Sequelize(process.env.JAWSDB_URL);
-  } else {
+} else {
     sequelize = new Sequelize(
         process.env.DB_NAME,
         process.env.DB_USER,
@@ -21,4 +23,5 @@ if (process.env.JAWSDB_URL) {
     );
 }
 
+// export connection
 module.exports = sequelize;

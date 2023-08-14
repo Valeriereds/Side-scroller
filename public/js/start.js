@@ -1,6 +1,6 @@
 window.addEventListener('load', function () {
-    const canvas = document.getElementById('canvas1');
-    const ctx = canvas.getContext('2d');
+    const canvas = document.getElementById('canvas1')
+    const ctx = canvas.getContext('2d')
     canvas.width = 800;
     canvas.height = 720;
     let enemies = []
@@ -10,8 +10,9 @@ window.addEventListener('load', function () {
     let collectedPowerUpIndices = [];
     let powerUpInterval = 20000;
     let powerUpTimer = powerUpInterval;
+    let activePowerUpRemainingTime = 0;
 
-
+    //all sounds
     let audio1 = new Audio('./assets/sounds/Beat_Blitz.mp3');
     audio1.volume = 0.1;
     audio1.play();
@@ -19,8 +20,10 @@ window.addEventListener('load', function () {
     audio2.volume = 0.2;
     let audio3 = new Audio('./assets/sounds/Collect_Point.mp3');
     audio3.volume = 0.2;
+    let powerUpCollectSound = new Audio('./assets/sounds/Nom.mp3');
+    powerUpCollectSound.volume = 1;
 
-
+    // Reads the user input of arrow keys
     class InputHandler {
         constructor() {
             this.keys = [];
@@ -45,6 +48,7 @@ window.addEventListener('load', function () {
         }
     }
 
+    // handles everything to do with the player
     class Player {
         constructor(gameWidth, gameHeight) {
             this.gameWidth = gameWidth;
@@ -64,16 +68,12 @@ window.addEventListener('load', function () {
             this.vy = 0;
             this.weight = 1;
             this.powerUp = false;
-            this.powerUpTimer = 0
-            this.powerUpLimit = 5000;
+            this.powerUpTimer = 0;
+            this.powerUpLimit = 8000;
         }
         draw(context) {
-            // context.fillStyle = 'white';
-            // context.fillRect(this.x, this.y, this.width, this.height);
-            // context.strokeStyle = 'white'
             context.beginPath();
             context.arc(this.x + this.width / 3, this.y + this.height / 2, this.width / 2, 0, Math.PI * 2);
-            // context.stroke();
             context.drawImage(this.image, this.frameX * this.width, this.frameY * this.height, this.width, this.height, this.x, this.y, this.width, this.height);
         }
         update(input, deltaTime, enemies, powerUps) {
@@ -100,12 +100,14 @@ window.addEventListener('load', function () {
             // power up
             if (this.powerUp) {
                 this.powerUpTimer += deltaTime;
-
+                activePowerUpRemainingTime = Math.max(this.powerUpLimit - this.powerUpTimer, 0);
                 if (this.powerUpTimer > this.powerUpLimit) {
                     this.powerUp = false;
                     this.powerUpTimer = 0;
+                    activePowerUpRemainingTime = 0;
                 }
             } else {
+                activePowerUpRemainingTime = 0;
                 powerUps.forEach((powerUp, index) => {
                     const dx = (powerUp.x + powerUp.width / 2) - (this.x + this.width / 3);
                     const dy = (powerUp.y + powerUp.height / 2) - (this.y + this.height / 3);
@@ -115,6 +117,8 @@ window.addEventListener('load', function () {
                         this.powerUp = true;
                         this.powerUpTimer = 0;
                         collectedPowerUpIndices.push(index);
+                        player.powerUpTimer = 0;
+                        powerUpCollectSound.play();
                     }
                 });
             }
@@ -153,6 +157,7 @@ window.addEventListener('load', function () {
         }
     }
 
+    // handles the parallax background
     class Background {
         constructor(gameWidth, gameHeight) {
             this.gameWidth = gameWidth;
@@ -174,6 +179,7 @@ window.addEventListener('load', function () {
         }
     }
 
+    // handles everything to do with the powerup
     class PowerUp {
         constructor(gameWidth, gameHeight, initialY) {
             this.gameWidth = gameWidth;
@@ -187,15 +193,12 @@ window.addEventListener('load', function () {
             this.activeDuration = 5000;
             this.timer = 0;
         }
-
         draw(context) {
             context.drawImage(this.image, this.x, this.y, this.width, this.height);
         }
-
         update(deltaTime) {
             if (this.active) {
                 this.timer += deltaTime;
-
                 if (this.timer > this.activeDuration) {
                     this.active = false;
                     this.timer = 0;
@@ -205,7 +208,7 @@ window.addEventListener('load', function () {
         }
     }
 
-
+    // handles everything for the enemies
     class Enemy {
         constructor(gameWidth, gameHeight) {
             this.gameWidth = gameWidth;
@@ -220,13 +223,13 @@ window.addEventListener('load', function () {
             this.fps = 20;
             this.frameTimer = 0;
             this.frameInterval = 1000 / this.fps;
-            this.speed = 10;
+            this.speed = Math.random() * 10 + 3;
             this.markedForDeletion = false;
         }
         draw(context) {
+            // collision detection
             context.beginPath();
             context.arc(this.x + this.width / 3, this.y + this.height / 2, this.width / 2, 0, Math.PI * 2);
-            // context.stroke();
             context.drawImage(this.image, this.frameX * this.width, 0, this.width, this.height, this.x, this.y, this.width, this.height);
         }
         update(deltaTime) {
@@ -250,7 +253,7 @@ window.addEventListener('load', function () {
         }
     }
 
-
+    // pushes and deletes enemies from the enemies array
     function handleEnemies(deltaTime) {
         if (enemyTimer > enemyInterval + randomEnemyInterval) {
             enemies.push(new Enemy(canvas.width, canvas.height));
@@ -265,36 +268,41 @@ window.addEventListener('load', function () {
         enemies = enemies.filter(enemy => !enemy.markedForDeletion);
     }
 
+    // pushes and deletes powerups from the powerup array
     function handlePowerUps(deltaTime) {
         powerUpTimer += deltaTime;
-
         if (powerUpTimer > powerUpInterval) {
             const maxSpawnHeight = player.y - player.height;
             const minSpawnHeight = maxSpawnHeight - 200;
-
             const yPosition = Math.max(minSpawnHeight, Math.random() * (maxSpawnHeight - minSpawnHeight) + minSpawnHeight);
-
             powerUps.push(new PowerUp(canvas.width, canvas.height, yPosition));
+            powerUpInterval = Math.random() * 10000 + 10000;
             powerUpTimer = 0;
+            remainingPowerUpTime = powerUpInterval;
+        } else {
+            remainingPowerUpTime = powerUpInterval - powerUpTimer;
         }
-
         powerUps.forEach((powerUp, index) => {
             powerUp.draw(ctx);
             powerUp.update(deltaTime);
-
             if (powerUp.x + powerUp.width <= 0 || powerUp.active) {
                 powerUps.splice(index, 1);
             }
         });
     }
 
+    //displays the score, how long the powerup is active, and the game over text
     function displayStatusText(context) {
-        context.font = '40px Helvetica'
+        context.font = '40px Russo One';
         context.fillStyle = 'black';
-        context.fillText('Score: ' + score, 20, 50)
+        context.fillText('Score: ' + score, 20, 50);
         context.fillStyle = 'white';
-        context.fillText('Score: ' + score, 20, 52)
+        context.fillText('Score: ' + score, 20, 52);
+        if (player.powerUp) {
+            context.fillText('2X: ' + (activePowerUpRemainingTime / 1000).toFixed(1) + 's', 20, 100);
+        }
         if (gameOver) {
+            powerUpTimer = 0;
             audio1.pause();
             context.textAlign = 'center';
             context.fillStyle = 'black';
@@ -336,9 +344,9 @@ window.addEventListener('load', function () {
     let lastTime = 0;
     let enemyTimer = 0;
     let enemyInterval = 2000;
-    let randomEnemyInterval = Math.random() * 1000 + 100;
+    let randomEnemyInterval = Math.random() * 800 + 200;
 
-
+    // calls all the classes and starts the animations
     function animate(timeStamp) {
         const deltaTime = timeStamp - lastTime;
         lastTime = timeStamp;
@@ -350,14 +358,10 @@ window.addEventListener('load', function () {
         handleEnemies(deltaTime);
         handlePowerUps(deltaTime);
         displayStatusText(ctx);
-
-        // Remove collected power-ups
         powerUps = powerUps.filter(powerUp => !powerUp.active);
-
         if (!gameOver) {
             requestAnimationFrame(animate);
         }
     }
-
     animate(0);
 });
