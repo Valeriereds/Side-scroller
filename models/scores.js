@@ -1,11 +1,11 @@
-// require the model and datatypes from sequelize and connect to the configuration files 
+// require model and datatypes from sequelize and connect to configuration files 
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-// names the scores model using sequelize methods
+// name the Scores model using sequelize methods
 class Scores extends Model {}
 
-// creates and describes the scores model
+// create and describe the scores model
 Scores.init(
   {
     // the id field is a autoincremented primary key
@@ -31,7 +31,7 @@ Scores.init(
     },
   },
   {
-    // setting sequelize standards to avoid timestamps, to keep it from adding an 's' to the table names, to understand the underscoring naming conventions, and to pass the case-sensitive name of the scores model
+    // set sequelize standards to avoid timestamps, restrict pluralization of table names, pass in underscoring naming conventions, and pass the case-sensitive name of the scores model
     sequelize,
     timestamps: false,
     freezeTableName: true,
@@ -40,5 +40,5 @@ Scores.init(
   }
 );
 
-// exporting the scores model
+// export the Scores model
 module.exports = Scores;
