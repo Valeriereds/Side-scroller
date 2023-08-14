@@ -5,11 +5,53 @@ body {
   text-align: center;
 }
 
-header {
+.bigHeader {
   font-size: 2.75em;
+  font-style: italic;
+  color: #fff;
+  text-shadow:
+    0 0 2px #fff,
+    0 0 5px #fff,
+    0 0 10px #fff,
+    0 0 21px #FF79D7,
+    0 0 61px #FF79D7,
+    0 0 71px #FF79D7,
+    0 0 81px #FF79D7,
+    0 0 130px #FF79D7;
+  margin-top: 100px;
 }
 
-#game-canvas {
+.smallHeader {
+  font-size: 1.25em;
+  font-style: italic;
+}
+
+#keyboard {
+  width: 110px;
+}
+
+#pizzaIcon {
+  width: 50px;
+}
+
+#rats {
+  height: 30px;
+  margin-top: 13px;
+}
+
+.instructions {
+  font-size: 23px;
+}
+
+.instrCard {
+  margin-top: 70px;
+}
+
+#ratty {
+  margin-top: 36px;
+}
+
+#canvas1 {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -21,8 +63,44 @@ header {
   display: none;
 }
 
+.btn {
+  font-family: 'Russo One', sans-serif;
+  font-size: .75em;
+  margin-top: 20px;
+}
+
+h2 {
+  font-size: 2.5em;
+}
+
+.form-group {
+  font-size: 1.75em;
+  padding-bottom: 15px;
+}
+
 .login-page {
   color: white;
+  margin-top: 85px;
+}
+
+.gameOptions {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 65px;
+}
+
+#startGame {
+  font-size: 2em;
+  padding: 0 50px;
+}
+
+#leaderboard {
+  font-size: 1.5em;
+}
+
+#logout {
+  font-size: 1.5em;
+  padding: 0 35px;
 }
 
 #scoreList {
