@@ -8,8 +8,8 @@ window.addEventListener('load', function () {
     let gameOver = false
     let powerUps = [];
     let collectedPowerUpIndices = [];
-    let powerUpInterval = 20000; // Set the power-up interval to 10 seconds
-    let powerUpTimer = powerUpInterval; // Initialize the timer to the interval value
+    let powerUpInterval = 20000;
+    let powerUpTimer = powerUpInterval;
 
 
     let audio1 = new Audio('./assets/sounds/Beat_Blitz.mp3');
@@ -99,11 +99,11 @@ window.addEventListener('load', function () {
 
             // power up
             if (this.powerUp) {
-                this.powerUpTimer += deltaTime; // Increment power-up timer
+                this.powerUpTimer += deltaTime;
 
                 if (this.powerUpTimer > this.powerUpLimit) {
-                    this.powerUp = false; // Deactivate power-up
-                    this.powerUpTimer = 0; // Reset power-up timer
+                    this.powerUp = false;
+                    this.powerUpTimer = 0;
                 }
             } else {
                 powerUps.forEach((powerUp, index) => {
@@ -114,7 +114,7 @@ window.addEventListener('load', function () {
                         powerUp.active = true;
                         this.powerUp = true;
                         this.powerUpTimer = 0;
-                        collectedPowerUpIndices.push(index); // Store index for removal
+                        collectedPowerUpIndices.push(index);
                     }
                 });
             }
@@ -185,7 +185,7 @@ window.addEventListener('load', function () {
             this.y = initialY;
             this.active = false;
             this.activeDuration = 5000;
-            this.timer = 0; // Timer for tracking active duration
+            this.timer = 0;
         }
 
         draw(context) {
@@ -194,11 +194,11 @@ window.addEventListener('load', function () {
 
         update(deltaTime) {
             if (this.active) {
-                this.timer += deltaTime; // Increment the timer
+                this.timer += deltaTime;
 
                 if (this.timer > this.activeDuration) {
                     this.active = false;
-                    this.timer = 0; // Reset the timer
+                    this.timer = 0;
                 }
             }
             this.x -= 2;
@@ -241,9 +241,9 @@ window.addEventListener('load', function () {
             if (this.x < 0 - this.width) {
                 this.markedForDeletion = true;
                 if (player.powerUp) {
-                    score += 2; // Double points during power-up
+                    score += 2;
                 } else {
-                    score += 1; // Regular points
+                    score += 1;
                 }
                 audio3.play();
             }
@@ -269,18 +269,18 @@ window.addEventListener('load', function () {
         powerUpTimer += deltaTime;
 
         if (powerUpTimer > powerUpInterval) {
-            const maxSpawnHeight = player.y - player.height; // Use player.height instead of player.jumpHeight
+            const maxSpawnHeight = player.y - player.height;
             const minSpawnHeight = maxSpawnHeight - 200;
 
             const yPosition = Math.max(minSpawnHeight, Math.random() * (maxSpawnHeight - minSpawnHeight) + minSpawnHeight);
 
             powerUps.push(new PowerUp(canvas.width, canvas.height, yPosition));
-            powerUpTimer = 0; // Reset the timer
+            powerUpTimer = 0;
         }
 
         powerUps.forEach((powerUp, index) => {
             powerUp.draw(ctx);
-            powerUp.update(deltaTime); // Pass deltaTime to the update method
+            powerUp.update(deltaTime);
 
             if (powerUp.x + powerUp.width <= 0 || powerUp.active) {
                 powerUps.splice(index, 1);

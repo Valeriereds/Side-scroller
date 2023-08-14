@@ -15,10 +15,11 @@ router.get('/', async (req, res) => {
 router.get('/gameover', withAuth, async (req, res) => {
   try {
     // trying to display last score on gameover
-    // const scoreData = await Scores.findAll();
-    // const scores = scoreData.map((score) => score.get({plain: true}));
+    const scoreData = await Scores.findAll();
+    const scores = scoreData.map((score) => score.get({plain: true}));
+    let lastScore = scores[scores.length-1].score;
     res.render('gameover', {
-      // scores,
+      lastScore,
       logged_in: req.session.logged_in
     });
   } catch (err) {
