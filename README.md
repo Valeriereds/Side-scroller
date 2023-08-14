@@ -45,5 +45,21 @@ https://www.youtube.com/watch?v=7JtLHJbm0kA
 
 Many thanks to Frank, honorary member of the JumpIt NYC devs.
 
+Our background art was sourced from:
+
+https://craftpix.net/freebies/free-pixel-art-street-2d-backgrounds/
+
+We also sourced our pixelated character art from: 
+
+https://craftpix.net/freebies/free-3-cyberpunk-characters-pixel-art/?num=1&count=525&sq=cyberpunk%20characters&pos=3
+
+Our rat character art came from the street animals add-on from the same character art pack:
+
+https://craftpix.net/freebies/free-street-animal-pixel-art-asset-pack/
+
+Our power-up/food art was sourced from:
+
+https://opengameart.org/content/food-items-16x16
+
 ## License
 A [MIT license](https://github.com/Valeriereds/Side-scroller/blob/main/LICENSE) was used for this project.
