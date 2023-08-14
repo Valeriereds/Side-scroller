@@ -2,11 +2,11 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-// name the Scores model using sequelize methods
-class Scores extends Model {}
+// name the Score model using sequelize methods
+class Score extends Model {}
 
 // create and describe the scores model
-Scores.init(
+Score.init(
   {
     // the id field is a autoincremented primary key
     id: {
@@ -40,5 +40,5 @@ Scores.init(
   }
 );
 
-// export the Scores model
-module.exports = Scores;
+// export the Score model
+module.exports = Score;

@@ -1,12 +1,12 @@
-// import express router and User and Scores models
+// import express router and User and Score models
 const router = require('express').Router();
-const { User, Scores }  = require('../../models');
+const { User, Score }  = require('../../models');
 
 // GET method to read all scores
 router.get('/', async (req, res) => {
   try {
     // read scores and JOIN with user data
-    const scoreData = await Scores.findAll({
+    const scoreData = await Score.findAll({
     include: [
       {
         model: User,
@@ -28,7 +28,7 @@ router.post('/', async (req, res) => {
   // create score when user's game ends
   const body = req.body;
   try {
-    const newScore = await Scores.create({...body, user_id: req.session.user_id});
+    const newScore = await Score.create({...body, user_id: req.session.user_id});
     res.status(200).json(newScore);
   } catch (err) {
     res.status(400).json(err);
