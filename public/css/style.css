@@ -26,6 +26,10 @@ body {
   font-style: italic;
 }
 
+#finalScore {
+  font-size: 25px;
+}
+
 #keyboard {
   width: 110px;
 }
