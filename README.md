@@ -12,6 +12,7 @@ Future improvements include:
 - Add more sophisticated game stats for leaderboard differentiation
 - Fight a boss at the level's end
 - Add more than 1 level
+- Continue adding mobile functionality
 
 ## Installation
 
