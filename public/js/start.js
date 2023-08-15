@@ -235,7 +235,7 @@ window.addEventListener('load', function () {
             this.fps = 20;
             this.frameTimer = 0;
             this.frameInterval = 1000 / this.fps;
-            this.speed = Math.random() * 10 + 4;
+            this.speed = Math.random() * 14 + 4;
             this.markedForDeletion = false;
         }
         draw(context) {
