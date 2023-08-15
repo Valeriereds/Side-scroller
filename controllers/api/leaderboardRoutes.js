@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
       }],
     // filter for 5 highest scores to display on leaderboard
     order: [['score', 'DESC']],
-    limit: 5,
+    limit: 10,
     });
     res.status(200).json(scoreData);
     // catch any errors and send error response

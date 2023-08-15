@@ -27,6 +27,8 @@ window.addEventListener('load', function () {
     class InputHandler {
         constructor() {
             this.keys = [];
+            this.touchY = '';
+            this.touchThreshold = 100;
             window.addEventListener('keydown', e => {
                 if ((e.key === 'ArrowDown' ||
                     e.key === 'ArrowUp' ||
@@ -44,6 +46,16 @@ window.addEventListener('load', function () {
                     e.key === 'ArrowRight') {
                     this.keys.splice(this.keys.indexOf(e.key), 1);
                 }
+            });
+            window.addEventListener('touchstart', e => {
+                this.touchY = e.changedTouches[0].pageY
+            });
+            window.addEventListener('touchmove', e => {
+                const swipeDistance = e.changedTouches[0].pageY - this.touchY;
+                if (swipeDistance < -this.touchThreshold && this.keys.indexOf('swipe up') === -1) this.keys.push('swipe up');
+            });
+            window.addEventListener('touchend', e => {
+                this.keys.splice(this.keys.indexOf('swipe up'), 1);              
             });
         }
     }
@@ -128,7 +140,7 @@ window.addEventListener('load', function () {
                 this.speed = 5;
             } else if (input.keys.indexOf('ArrowLeft') > -1) {
                 this.speed = -5;
-            } else if (input.keys.indexOf('ArrowUp') > -1 && this.onGround()) {
+            } else if ((input.keys.indexOf('ArrowUp') > -1 || input.keys.indexOf('swipe up') > -1) && this.onGround()) {
                 this.vy -= 30;
             } else {
                 this.speed = 0;
@@ -223,7 +235,7 @@ window.addEventListener('load', function () {
             this.fps = 20;
             this.frameTimer = 0;
             this.frameInterval = 1000 / this.fps;
-            this.speed = Math.random() * 10 + 3;
+            this.speed = Math.random() * 10 + 4;
             this.markedForDeletion = false;
         }
         draw(context) {

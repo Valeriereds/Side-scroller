@@ -54,7 +54,7 @@ router.get('/leaderboards', withAuth, async (req, res) => {
       }],
     // filters for 5 highest scores to display on leaderboard
     order: [['score', 'DESC']],
-    limit: 5,
+    limit: 10,
     });
     // Serialize data so the template can read it
     const scores = scoreData.map((score) => score.get({ plain: true }));

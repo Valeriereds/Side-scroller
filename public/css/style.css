@@ -49,6 +49,8 @@ body {
 
 #ratty {
   margin-top: 36px;
+  font-size: 30px;
+  font-style: italic;
 }
 
 #canvas1 {
@@ -108,7 +110,7 @@ td {
 .gameOptions {
   display: flex;
   justify-content: space-evenly;
-  margin-top: 65px;
+  margin-top: 50px;
 }
 
 #startGame {
